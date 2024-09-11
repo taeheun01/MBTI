@@ -1,11 +1,19 @@
 import { useEffect } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 
-const Layout = ({ children, user, isLogin }) => {
+const Layout = ({ children, user, isLogin, setIsLogin }) => {
     const navigate = useNavigate();
-    useEffect(() => {}, [user]);
+
+    useEffect(() => {
+        const accessToken = localStorage.getItem("token");
+        if (accessToken) {
+            setIsLogin(true);
+        }
+    }, [user]);
 
     const handleLogout = () => {
+        localStorage.removeItem("token");
+        setIsLogin(false);
         alert("로그아웃이 되었습니다.");
         navigate("/");
     };

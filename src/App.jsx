@@ -11,14 +11,21 @@ import { useState } from "react";
 const App = () => {
     const [user, setUser] = useState();
     const [isLogin, setIsLogin] = useState(false);
+    const [accessToken, setAccessToken] = useState(null);
 
     return (
         <BrowserRouter>
-            <Layout isLogin={isLogin} user={user} setUser={setUser} />
+            <Layout isLogin={isLogin} user={user} setUser={setUser} setIsLogin={setIsLogin} />
             <Routes>
                 <Route path="/" element={<Home />}></Route>
-                <Route path="/login" element={<Login setIsLogin={setIsLogin} />}></Route>
-                <Route path="/profile" element={<Profile isLogin={isLogin} />}></Route>
+                <Route
+                    path="/login"
+                    element={<Login setIsLogin={setIsLogin} setUser={setUser} setAccessToken={setAccessToken} />}
+                ></Route>
+                <Route
+                    path="/profile"
+                    element={<Profile isLogin={isLogin} user={user} setUser={setUser} accessToken={accessToken} />}
+                ></Route>
                 <Route path="/signup" element={<Signup />}></Route>
                 <Route path="/testpage" element={<TestPage />}></Route>
                 <Route path="/testresultpage" element={<TestResultPage />}></Route>

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 const API_URL = "https://moneyfulpublicpolicy.co.kr";
 
-const Login = ({ setIsLogin }) => {
+const Login = ({ setIsLogin, setUser, setAccessToken }) => {
     const navigate = useNavigate();
     const [id, setId] = useState("");
     const [password, setPassword] = useState("");
@@ -19,6 +19,10 @@ const Login = ({ setIsLogin }) => {
             });
 
             if (response.status === 200) {
+                const { accessToken } = response.data;
+                console.log(accessToken);
+                localStorage.setItem("token", accessToken);
+                setUser(response.data.user);
                 setIsLogin(true);
                 navigate("/");
             } else {

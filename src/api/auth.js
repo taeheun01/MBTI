@@ -11,11 +11,6 @@ export const register = async (userData) => {
 export const login = async (userData) => {
     try {
    const response = await axios.post(`${API_URL}/login`, {userData})
-   const token = response.data.token
-
-if (token) {
-    localStorage.setItem('jwtToken', token);
-}
 return response.data;
 } catch (error) {
     console.error('로그인 실패',error.response? error.response.data : error.message)
